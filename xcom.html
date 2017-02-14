@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--////////////////////////////////////////////////////////////////////////////
+HEAD
+-->
+<head>
+  <meta charset="UTF-8">
+  <title> XCOM </title>
+</head>
+
+<!--////////////////////////////////////////////////////////////////////////////
+BODY
+-->
+<body>
+</body>
+
+<!--////////////////////////////////////////////////////////////////////////////
+SCRIPT
+-->
+<script>
+  
+  //============================================================================
+  //
+  const random = function( start, finish )
+  {
+    return Math.floor( Math.random() * ( finish - start + 1 ) ) + start
+  }
+
+  //============================================================================
+  //
+  const info =
+  {
+    //..........................................................................
+    //
+    langList:
+    [
+      'English',
+      'French',
+      'German',
+      'Italian',
+      'Polish',
+      'Russian',
+      'Spanish',
+    ],
+
+    //..........................................................................
+    //
+    language: 7,
+    voice: 6,
+    race: 4,
+
+    head: null,
+    skin: null,
+    facial: 24,
+
+    helmet: 41,
+    hair: 24,
+    deco: 3,
+    tint: 32,
+
+    //..........................................................................
+    //
+    f:
+    {
+      head: [ null, 9, 5, 5, 5 ],
+      skin: [ null, 6, 7, 5, 5 ],
+    },
+
+    m:
+    {
+      head: [ null, 10, 6, 5, 5 ],
+      skin: [ null, 6, 7, 5, 5 ],
+    },
+  }
+
+  //============================================================================
+  //
+  const createChar = function( gender )
+  {
+    //..........................................................................
+    //
+    let race = random( 1, info.race )
+
+    //..........................................................................
+    //
+    if( gender === 'f' )
+    {
+      info.head = info.f.head[ race ]
+      info.skin = info.f.skin[ race ]
+    }
+
+    else if( gender === 'm' )
+    {
+      info.head = info.m.head[ race ]
+      info.skin = info.m.skin[ race ]
+    }
+
+    //..........................................................................
+    //
+    let msg = ''
+
+    msg += '\nLanguage . ' + info.langList[ random( 1, info.language ) - 1 ]
+    msg += '\nVoice    . ' + random( 1, info.voice )
+    msg += '\nRace     . ' + race
+    msg += '\nHead     . ' + random( 1, info.head )
+    msg += '\nSkin     . ' + random( 1, info.skin )
+    msg += '\nHelmet   . ' + random( 1, info.helmet )
+    msg += '\nHair     . ' + random( 1, info.hair )
+
+    if( gender === 'm' ) msg += '\nFacial   . ' + random( 1, info.facial )
+
+    msg += '\nDeco     . ' + random( 1, info.deco )
+    msg += '\nTint     . ' + random( 0, info.tint )
+    msg += '\n\n\n\n\n\n\n\n'
+
+    console.log( msg )
+  }
+
+</script>
+
+</html>
