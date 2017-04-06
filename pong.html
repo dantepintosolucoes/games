@@ -189,25 +189,25 @@ SCRIPT
     if(chave.esq.cima === true
     && chave.esq.baixo === false)
     {
-      estado.esq -= 8
+      if(estado.esq > 12) estado.esq -= 6
     }
 
     else if(chave.esq.cima === false
     && chave.esq.baixo === true)
     {
-      estado.esq += 8
+      if(estado.esq < 500 - 120 - 12) estado.esq += 6
     }
 
     if(chave.dir.cima === true
     && chave.dir.baixo === false)
     {
-      estado.dir -= 8
+      if(estado.dir > 12) estado.dir -= 6
     }
 
     else if(chave.dir.cima === false
     && chave.dir.baixo === true)
     {
-      estado.dir += 8
+      if(estado.dir < 500 - 120 - 12) estado.dir += 6
     }
   }
 
