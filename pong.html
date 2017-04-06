@@ -169,8 +169,8 @@ SCRIPT
 
   const chave =
   {
-    esq:{cima:false;baixo:false}
-    dir:{cima:false;baixo:false}
+    esq:{cima:false,baixo:false},
+    dir:{cima:false,baixo:false},
   }
 
   const html =
@@ -186,7 +186,29 @@ SCRIPT
   //
   const movimente = function()
   {
-    // tbd
+    if(chave.esq.cima === true
+    && chave.esq.baixo === false)
+    {
+      estado.esq -= 8
+    }
+
+    else if(chave.esq.cima === false
+    && chave.esq.baixo === true)
+    {
+      estado.esq += 8
+    }
+
+    if(chave.dir.cima === true
+    && chave.dir.baixo === false)
+    {
+      estado.dir -= 8
+    }
+
+    else if(chave.dir.cima === false
+    && chave.dir.baixo === true)
+    {
+      estado.dir += 8
+    }
   }
 
   const atualize = function()
@@ -199,6 +221,9 @@ SCRIPT
     html.bola.style.transform = valor
   }
 
+  //============================================================================
+  // CONTROLE
+  //
   const controle =
   {
     apertou: function(tecla)
@@ -220,10 +245,7 @@ SCRIPT
     },
   }
 
-  //============================================================================
-  // CONTROLADOR
-  //
-  const controlador =
+  const gatilho =
   {
     apertou:addEventListener("keydown",controle.apertou,false),
     soltou:addEventListener("keyup",controle.soltou,false),
