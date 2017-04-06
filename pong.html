@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+<!--////////////////////////////////////////////////////////////////////////////
+HEAD
+-->
+<head>
+
+  <title>PONG</title>
+  <meta charset="UTF-8">
+
+</head>
+
+<!--////////////////////////////////////////////////////////////////////////////
+BODY
+-->
+<body class="centro">
+
+  <div class="placar">
+    <div class="caixa centro">
+      <div class="letra centro moldura">A</div>
+    </div>
+    <div class="caixa centro">
+      <div class="numero">0</div>
+    </div>
+    <div class="caixa centro">
+      <div class="letra centro moldura">Z</div>
+    </div>
+  </div>
+
+  <div id="arena" class="moldura">
+    <div id="esq" class="barra"></div>
+    <div id="dir" class="barra"></div>
+    <div id="bola"></div>
+  </div>
+
+  <div class="placar">
+    <div class="caixa centro">
+      <div class="letra centro moldura">K</div>
+    </div>
+    <div class="caixa centro">
+      <div class="numero">0</div>
+    </div>
+    <div class="caixa centro">
+      <div class="letra centro moldura">M</div>
+    </div>
+  </div>
+
+</body>
+
+<!--////////////////////////////////////////////////////////////////////////////
+STYLE
+-->
+<style>
+
+  html
+  {
+    height:100%;
+  }
+
+  body
+  {
+    margin:0;
+    height:100%;
+    background-color:#106010;
+  }
+
+  #arena
+  {
+    width:800px;
+    height:500px;
+  }
+
+  #bola
+  {
+    width:30px;
+    height:30px;
+    border-radius:100%;
+    background-color:#50B050;
+    position:absolute;
+  }
+
+  #esq
+  {
+    float:left;
+    margin-left:10px;
+  }
+
+  #dir
+  {
+    float:right;
+    margin-right:10px;
+  }
+
+  .centro
+  {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .moldura
+  {
+    background-color:#208020;
+    border:4px solid #70D070;
+    border-radius:10px;
+  }
+
+  .barra
+  {
+    width:10px;
+    height:120px;
+    background-color:#50B050;
+    border-radius:5px;
+  }
+
+  .placar
+  {
+    display:flex;
+    flex-direction:column;
+  }
+
+  .caixa
+  {
+    width:220px;
+    height:150px;
+    color:#70D070;
+    font-size:180px;
+    font-family:sans-serif;
+  }
+
+  .letra
+  {
+    width:50px;
+    height:50px;
+    font-size:30px;
+    box-shadow: 0 5px 10px #003000;
+    color:#50B050;
+  }
+
+  .numero
+  {
+    padding-top:30px;
+  }
+
+</style>
+
+<!--////////////////////////////////////////////////////////////////////////////
+SCRIPT
+-->
+<script>
+
+  'use strict'
+
+  //============================================================================
+  // OBJETOS
+  //
+  const info =
+  {
+    centro:{x:400,y:250}
+  }
+
+  const estado =
+  {
+    esq:0,
+    dir:0,
+    bola:{x:0,y:0},
+  }
+
+  const chave =
+  {
+    esq:{cima:false;baixo:false}
+    dir:{cima:false;baixo:false}
+  }
+
+  const html =
+  {
+    arena:document.getElementById("arena"),
+    esq:document.getElementById("esq"),
+    dir:document.getElementById("dir"),
+    bola:document.getElementById("bola"),
+  }
+
+  //============================================================================
+  // FUNÇÕES
+  //
+  const movimente = function()
+  {
+    // tbd
+  }
+
+  const atualize = function()
+  {
+    html.esq.style.marginTop = String( estado.esq ) + "px"
+    html.dir.style.marginTop = String( estado.dir ) + "px"
+
+    const valor = "translate(" + estado.bola.x + "px," + estado.bola.y + "px)"
+
+    html.bola.style.transform = valor
+  }
+
+  const controle =
+  {
+    apertou: function(tecla)
+    {
+      if(tecla.key === "a") chave.esq.cima = true
+      else if(tecla.key === "z") chave.esq.baixo = true
+
+      if(tecla.key === "k") chave.dir.cima = true
+      else if(tecla.key === "m") chave.dir.baixo = true
+    },
+
+    soltou: function(tecla)
+    {
+      if(tecla.key === "a") chave.esq.cima = false
+      else if(tecla.key === "z") chave.esq.baixo = false
+
+      if(tecla.key === "k") chave.dir.cima = false
+      else if(tecla.key === "m") chave.dir.baixo = false
+    },
+  }
+
+  //============================================================================
+  // CONTROLADOR
+  //
+  const controlador =
+  {
+    apertou:addEventListener("keydown",controle.apertou,false),
+    soltou:addEventListener("keyup",controle.soltou,false),
+  }
+
+  //============================================================================
+  // MOTOR
+  //
+  const motor =
+  {
+    ligue: function()
+    {
+      estado.bola.x = info.centro.x - 15
+      estado.bola.y = info.centro.y - 15
+
+      estado.esq = estado.dir = info.centro.y - 60
+    },
+
+    rode: function()
+    {
+      movimente()
+      atualize()
+      window.requestAnimationFrame( motor.rode )
+    },
+  }
+
+  motor.ligue()
+  motor.rode()
+
+</script>
