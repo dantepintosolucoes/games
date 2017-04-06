@@ -1,75 +1,75 @@
-const mutante =
+const estado =
 {
   turno: 0,
 }
 
-const solido =
+const html =
 {
   arena: document.getElementById("tabuleiro"),
   casas: document.querySelectorAll(".casa"),
 }
 
-document.addEventListener( "click", function( event )
+document.addEventListener("click",function(evento)
 {
-  if( event.target.id.substring( 0, 4 ) === "casa"
-  && event.target.innerHTML === "" )
+  if(evento.target.id.substring(0,4) === "casa"
+  && evento.target.innerHTML === "")
   {
     ////////////////////////////////////////////////////////////////////////////
     //
-    if( mutante.turno % 2 === 0 ) event.target.innerHTML="X"
-    else                          event.target.innerHTML="O"
+    if(estado.turno % 2 === 0) evento.target.innerHTML="X"
+    else                          evento.target.innerHTML="O"
 
     let key = null
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    if( solido.casas[0].innerHTML === solido.casas[4].innerHTML
-    && solido.casas[4].innerHTML === solido.casas[8].innerHTML
-    || solido.casas[2].innerHTML === solido.casas[4].innerHTML
-    && solido.casas[4].innerHTML === solido.casas[6].innerHTML
-    || solido.casas[3].innerHTML === solido.casas[4].innerHTML
-    && solido.casas[4].innerHTML === solido.casas[5].innerHTML
-    || solido.casas[1].innerHTML === solido.casas[4].innerHTML
-    && solido.casas[4].innerHTML === solido.casas[7].innerHTML )
+    if(html.casas[0].innerHTML === html.casas[4].innerHTML
+    && html.casas[4].innerHTML === html.casas[8].innerHTML
+    || html.casas[2].innerHTML === html.casas[4].innerHTML
+    && html.casas[4].innerHTML === html.casas[6].innerHTML
+    || html.casas[3].innerHTML === html.casas[4].innerHTML
+    && html.casas[4].innerHTML === html.casas[5].innerHTML
+    || html.casas[1].innerHTML === html.casas[4].innerHTML
+    && html.casas[4].innerHTML === html.casas[7].innerHTML)
     {
-      if( solido.casas[4].innerHTML !== "" ) key = solido.casas[4].innerHTML
+      if(html.casas[4].innerHTML !== "") key = html.casas[4].innerHTML
     }
 
-    else if( solido.casas[0].innerHTML === solido.casas[1].innerHTML
-    && solido.casas[1].innerHTML === solido.casas[2].innerHTML
-    || solido.casas[0].innerHTML === solido.casas[3].innerHTML
-    && solido.casas[3].innerHTML === solido.casas[6].innerHTML )
+    else if(html.casas[0].innerHTML === html.casas[1].innerHTML
+    && html.casas[1].innerHTML === html.casas[2].innerHTML
+    || html.casas[0].innerHTML === html.casas[3].innerHTML
+    && html.casas[3].innerHTML === html.casas[6].innerHTML)
     {
-      if( solido.casas[0].innerHTML !== "" ) key = solido.casas[0].innerHTML
+      if(html.casas[0].innerHTML !== "") key = html.casas[0].innerHTML
     }
 
-    else if( solido.casas[2].innerHTML === solido.casas[5].innerHTML
-    && solido.casas[5].innerHTML === solido.casas[8].innerHTML
-    || solido.casas[6].innerHTML === solido.casas[7].innerHTML
-    && solido.casas[7].innerHTML === solido.casas[8].innerHTML )
+    else if(html.casas[2].innerHTML === html.casas[5].innerHTML
+    && html.casas[5].innerHTML === html.casas[8].innerHTML
+    || html.casas[6].innerHTML === html.casas[7].innerHTML
+    && html.casas[7].innerHTML === html.casas[8].innerHTML)
     {
-      if( solido.casas[8].innerHTML !== "" ) key = solido.casas[8].innerHTML
+      if(html.casas[8].innerHTML !== "") key = html.casas[8].innerHTML
     }
 
-    else if( mutante.turno === 8 )
+    else if(estado.turno === 8)
     {
       key = "empate"
     }
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    mutante.turno ++
+    estado.turno ++
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    if( key !== null )
+    if(key !== null)
     {
-      if( key === "empate" ) alert( "Empate..." )
-      else                   alert( key + " venceu!" )
+      if(key === "empate") alert("Empate...")
+      else                 alert(key + " venceu!")
 
-      Array.from( solido.casas ).forEach( function( $ ){ $.innerHTML = "" } )
+      Array.from(html.casas).forEach(function($){$.innerHTML = ""})
 
-      mutante.turno = 0
+      estado.turno = 0
     }
   }
-}, false )
+}, false)
