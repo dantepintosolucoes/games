@@ -84,11 +84,13 @@ STYLE
   #esq
   {
     float:left;
+    border-radius: 0 10px 10px 0;
   }
 
   #dir
   {
     float:right;
+    border-radius: 10px 0 0 10px;
   }
 
   .centro
@@ -105,9 +107,9 @@ STYLE
 
   .barra
   {
-    width:20px;
+    width:10px;
     height:120px;
-    background-color:#50B050;
+    background-color:#70D070;
   }
 
   .placar
@@ -131,6 +133,7 @@ STYLE
     height:50px;
     font-size:30px;
     color:#50B050;
+    border-radius:10px;
   }
 
   .numero
@@ -145,7 +148,7 @@ SCRIPT
 -->
 <script>
 
-  'use strict'
+  "use strict"
 
   //============================================================================
   // OBJETOS
@@ -160,8 +163,8 @@ SCRIPT
     esq:0,
     dir:0,
     bola:{x:0,y:0},
-    sentido:{hor:'esq',ver:'cim'},
-    velocidade:10,
+    sentido:{hor:"esq",ver:"cim"},
+    velocidade:1,
   }
 
   const chave =
@@ -182,6 +185,7 @@ SCRIPT
     //..........................................................................
     //
     letra:document.querySelectorAll(".letra"),
+    numero:document.querySelectorAll(".numero"),
   }
 
   //============================================================================
@@ -224,32 +228,41 @@ SCRIPT
     {
       //........................................................................
       //
-      if(estado.sentido.hor === 'esq') estado.bola.x -= estado.velocidade
-      else if(estado.sentido.hor === 'dir') estado.bola.x += estado.velocidade
+      if(estado.sentido.hor === "esq") estado.bola.x -= estado.velocidade
+      else if(estado.sentido.hor === "dir") estado.bola.x += estado.velocidade
 
-      if(estado.sentido.ver === 'cim') estado.bola.y -= estado.velocidade
-      else if(estado.sentido.ver === 'bai') estado.bola.y += estado.velocidade
+      if(estado.sentido.ver === "cim") estado.bola.y -= estado.velocidade
+      else if(estado.sentido.ver === "bai") estado.bola.y += estado.velocidade
 
       //........................................................................
       //
-      if(estado.bola.x < 0) estado.sentido.hor = 'dir'
-      else if(estado.bola.x > 800 - 30) estado.sentido.hor = 'esq'
+      if(estado.bola.x < 0)
+      {
+        estado.sentido.hor = "dir"
+        gol("esq")
+      }
 
-      if(estado.bola.y < 0) estado.sentido.ver = 'bai'
-      else if(estado.bola.y > 500 - 30) estado.sentido.ver = 'cim'
+      else if(estado.bola.x > 800 - 30)
+      {
+        estado.sentido.hor = "esq"
+        gol("dir")
+      }
+
+      if(estado.bola.y < 0) estado.sentido.ver = "bai"
+      else if(estado.bola.y > 500 - 30) estado.sentido.ver = "cim"
     },
   }
 
   const botao = function(indice,acao)
   {
-    if(acao === "apertou")
+    if(acao === "soltou")
     {
       html.letra[indice].style.boxShadow = "0 5px 5px #005000"
       html.letra[indice].style.borderBottom = "4px solid #007000"
       html.letra[indice].style.color = "#70D070"
     }
 
-    else if(acao === "soltou")
+    else if(acao === "apertou")
     {
       html.letra[indice].style.boxShadow = ""
       html.letra[indice].style.borderBottom = ""
@@ -271,19 +284,48 @@ SCRIPT
   {
     //..........................................................................
     //
-    if(chave.esq.cima === true) botao(0,"soltou")
-    else if(chave.esq.cima === false) botao(0,"apertou")
+    if(chave.esq.cima === true) botao(0,"apertou")
+    else if(chave.esq.cima === false) botao(0,"soltou")
 
-    if(chave.esq.baixo === true) botao(1,"soltou")
-    else if(chave.esq.baixo === false) botao(1,"apertou")
+    if(chave.esq.baixo === true) botao(1,"apertou")
+    else if(chave.esq.baixo === false) botao(1,"soltou")
 
     //..........................................................................
     //
-    if(chave.dir.cima === true) botao(2,"soltou")
-    else if(chave.dir.cima === false) botao(2,"apertou")
+    if(chave.dir.cima === true) botao(2,"apertou")
+    else if(chave.dir.cima === false) botao(2,"soltou")
 
-    if(chave.dir.baixo === true) botao(3,"soltou")
-    else if(chave.dir.baixo === false) botao(3,"apertou")
+    if(chave.dir.baixo === true) botao(3,"apertou")
+    else if(chave.dir.baixo === false) botao(3,"soltou")
+  }
+
+  const gol = function(lado)
+  {
+    if(lado === 'esq')
+    {
+      if(estado.esq - 30 < estado.bola.y && estado.esq + 120 > estado.bola.y)
+      {
+        estado.velocidade += 1
+      }
+
+      else
+      {
+        html.numero[0].innerHTML = String(Number(html.numero[0].innerHTML) + 1)
+      }
+    }
+
+    else if(lado === 'dir')
+    {
+      if(estado.dir - 30 < estado.bola.y && estado.dir + 120 > estado.bola.y)
+      {
+        estado.velocidade += 1
+      }
+
+      else
+      {
+        html.numero[1].innerHTML = String(Number(html.numero[1].innerHTML) + 1)
+      }
+    }
   }
 
   //============================================================================
