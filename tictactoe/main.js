@@ -1,3 +1,6 @@
+
+"use strict"
+
 const estado =
 {
   turno: 0,
@@ -17,7 +20,7 @@ document.addEventListener("click",function(evento)
     ////////////////////////////////////////////////////////////////////////////
     //
     if(estado.turno % 2 === 0) evento.target.innerHTML="X"
-    else                          evento.target.innerHTML="O"
+    else                       evento.target.innerHTML="O"
 
     let key = null
 

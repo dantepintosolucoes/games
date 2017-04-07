@@ -1,7 +1,7 @@
-#tabuleiro
+
+html
 {
-  width: 900px;
-  height: 900px;
+  height: 100%;
 }
 
 body
@@ -9,9 +9,10 @@ body
   height: 100%;
 }
 
-html
+#tabuleiro
 {
-  height: 100%;
+  width: 900px;
+  height: 900px;
 }
 
 .casa
@@ -30,6 +31,7 @@ html
   color: white;
 
   -moz-user-select: none;
+  cursor: pointer;
 }
 
 .centro
