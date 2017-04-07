@@ -1,20 +1,21 @@
 
 html
 {
-  height:100%;
+  height:98%;
 }
 
 body
 {
-  height:100%;
+  height:98%;
   flex-direction:column;
   -moz-user-select:none;
+  cursor:default;
 }
 
 a
 {
   width:600px;
-  height:31px;
+  height:25px;
   background-color:#A0A0A0;
   border-radius: 0 0 2px 2px;
 
@@ -27,18 +28,19 @@ a
 
   transition:all 0.2s linear;
   outline:none;
+  cursor:pointer;
 }
 
 a:hover
 {
+  height:80px;
   background-color:#C0C0C0;
-  font-size:44px;
   color:#808080;
 }
 
 p
 {
-  margin-top:-1px;
+  margin-top:2px;
 }
 
 h1
@@ -47,12 +49,14 @@ h1
   font-size:40px;
   font-family:sans-serif;
   font-weight:bold;
+  position:absolute;
+  transform:translateY(-180px);
 }
 
 .lbl
 {
   width:600px;
-  height:12px;
+  height:20px;
   background-color:#C0C0C0;
   border-radius: 2px 2px 0 0;
 
@@ -76,6 +80,11 @@ h1
 .correction
 {
   width:600px;
-  height:5px;
+  height:4px;
   background-color:#FFFFFF;
+}
+
+#last
+{
+  height:16px;
 }
