@@ -18,13 +18,13 @@ BODY
 
   <div class="placar">
     <div class="caixa centro">
-      <div class="letra centro moldura">A</div>
+      <div class="letra centro moldura">E</div>
     </div>
     <div class="caixa centro">
       <div class="numero">0</div>
     </div>
     <div class="caixa centro">
-      <div class="letra centro moldura">Z</div>
+      <div class="letra centro moldura">D</div>
     </div>
   </div>
 
@@ -36,13 +36,13 @@ BODY
 
   <div class="placar">
     <div class="caixa centro">
-      <div class="letra centro moldura">K</div>
+      <div class="letra centro moldura">;</div>
     </div>
     <div class="caixa centro">
       <div class="numero">0</div>
     </div>
     <div class="caixa centro">
-      <div class="letra centro moldura">M</div>
+      <div class="letra centro moldura">.</div>
     </div>
   </div>
 
@@ -228,20 +228,20 @@ SCRIPT
   {
     apertou: function(tecla)
     {
-      if(tecla.key === "a") chave.esq.cima = true
-      else if(tecla.key === "z") chave.esq.baixo = true
+      if(tecla.key === "e") chave.esq.cima = true
+      else if(tecla.key === "d") chave.esq.baixo = true
 
-      if(tecla.key === "k") chave.dir.cima = true
-      else if(tecla.key === "m") chave.dir.baixo = true
+      if(tecla.key === ";") chave.dir.cima = true
+      else if(tecla.key === ".") chave.dir.baixo = true
     },
 
     soltou: function(tecla)
     {
-      if(tecla.key === "a") chave.esq.cima = false
-      else if(tecla.key === "z") chave.esq.baixo = false
+      if(tecla.key === "e") chave.esq.cima = false
+      else if(tecla.key === "d") chave.esq.baixo = false
 
-      if(tecla.key === "k") chave.dir.cima = false
-      else if(tecla.key === "m") chave.dir.baixo = false
+      if(tecla.key === ";") chave.dir.cima = false
+      else if(tecla.key === ".") chave.dir.baixo = false
     },
   }
 
