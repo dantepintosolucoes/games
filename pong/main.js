@@ -164,7 +164,7 @@ const gol = function(lado)
 
     else
     {
-      html.numero[0].innerHTML = String(Number(html.numero[0].innerHTML) + 1)
+      html.numero[1].innerHTML = String(Number(html.numero[1].innerHTML) + 1)
       motor.ligue()
     }
   }
@@ -178,7 +178,7 @@ const gol = function(lado)
 
     else
     {
-      html.numero[1].innerHTML = String(Number(html.numero[1].innerHTML) + 1)
+      html.numero[0].innerHTML = String(Number(html.numero[0].innerHTML) + 1)
       motor.ligue()
     }
   }
