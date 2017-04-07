@@ -69,6 +69,7 @@ STYLE
   {
     width:800px;
     height:500px;
+    border:4px solid #70D070;
   }
 
   #bola
@@ -83,13 +84,11 @@ STYLE
   #esq
   {
     float:left;
-    margin-left:10px;
   }
 
   #dir
   {
     float:right;
-    margin-right:10px;
   }
 
   .centro
@@ -102,16 +101,13 @@ STYLE
   .moldura
   {
     background-color:#208020;
-    border:4px solid #70D070;
-    border-radius:10px;
   }
 
   .barra
   {
-    width:10px;
+    width:20px;
     height:120px;
     background-color:#50B050;
-    border-radius:5px;
   }
 
   .placar
@@ -134,7 +130,6 @@ STYLE
     width:50px;
     height:50px;
     font-size:30px;
-    box-shadow: 0 5px 10px #003000;
     color:#50B050;
   }
 
@@ -165,6 +160,8 @@ SCRIPT
     esq:0,
     dir:0,
     bola:{x:0,y:0},
+    sentido:{hor:'esq',ver:'cim'},
+    velocidade:10,
   }
 
   const chave =
@@ -175,39 +172,88 @@ SCRIPT
 
   const html =
   {
+    //..........................................................................
+    //
     arena:document.getElementById("arena"),
     esq:document.getElementById("esq"),
     dir:document.getElementById("dir"),
     bola:document.getElementById("bola"),
+
+    //..........................................................................
+    //
+    letra:document.querySelectorAll(".letra"),
   }
 
   //============================================================================
   // FUNÇÕES
   //
-  const movimente = function()
+  const movimente = 
   {
-    if(chave.esq.cima === true
-    && chave.esq.baixo === false)
+    barras:function()
     {
-      if(estado.esq > 12) estado.esq -= 6
+      //........................................................................
+      //
+      if(chave.esq.cima === true
+      && chave.esq.baixo === false)
+      {
+        if(estado.esq > 0) estado.esq -= 10
+      }
+
+      else if(chave.esq.cima === false
+      && chave.esq.baixo === true)
+      {
+        if(estado.esq < 500 - 120) estado.esq += 10
+      }
+
+      //........................................................................
+      //
+      if(chave.dir.cima === true
+      && chave.dir.baixo === false)
+      {
+        if(estado.dir > 0) estado.dir -= 10
+      }
+
+      else if(chave.dir.cima === false
+      && chave.dir.baixo === true)
+      {
+        if(estado.dir < 500 - 120) estado.dir += 10
+      }
+    },
+
+    bola:function()
+    {
+      //........................................................................
+      //
+      if(estado.sentido.hor === 'esq') estado.bola.x -= estado.velocidade
+      else if(estado.sentido.hor === 'dir') estado.bola.x += estado.velocidade
+
+      if(estado.sentido.ver === 'cim') estado.bola.y -= estado.velocidade
+      else if(estado.sentido.ver === 'bai') estado.bola.y += estado.velocidade
+
+      //........................................................................
+      //
+      if(estado.bola.x < 0) estado.sentido.hor = 'dir'
+      else if(estado.bola.x > 800 - 30) estado.sentido.hor = 'esq'
+
+      if(estado.bola.y < 0) estado.sentido.ver = 'bai'
+      else if(estado.bola.y > 500 - 30) estado.sentido.ver = 'cim'
+    },
+  }
+
+  const botao = function(indice,acao)
+  {
+    if(acao === "apertou")
+    {
+      html.letra[indice].style.boxShadow = "0 5px 5px #005000"
+      html.letra[indice].style.borderBottom = "4px solid #007000"
+      html.letra[indice].style.color = "#70D070"
     }
 
-    else if(chave.esq.cima === false
-    && chave.esq.baixo === true)
+    else if(acao === "soltou")
     {
-      if(estado.esq < 500 - 120 - 12) estado.esq += 6
-    }
-
-    if(chave.dir.cima === true
-    && chave.dir.baixo === false)
-    {
-      if(estado.dir > 12) estado.dir -= 6
-    }
-
-    else if(chave.dir.cima === false
-    && chave.dir.baixo === true)
-    {
-      if(estado.dir < 500 - 120 - 12) estado.dir += 6
+      html.letra[indice].style.boxShadow = ""
+      html.letra[indice].style.borderBottom = ""
+      html.letra[indice].style.color = "#90F090"
     }
   }
 
@@ -221,10 +267,29 @@ SCRIPT
     html.bola.style.transform = valor
   }
 
+  const luzes = function()
+  {
+    //..........................................................................
+    //
+    if(chave.esq.cima === true) botao(0,"soltou")
+    else if(chave.esq.cima === false) botao(0,"apertou")
+
+    if(chave.esq.baixo === true) botao(1,"soltou")
+    else if(chave.esq.baixo === false) botao(1,"apertou")
+
+    //..........................................................................
+    //
+    if(chave.dir.cima === true) botao(2,"soltou")
+    else if(chave.dir.cima === false) botao(2,"apertou")
+
+    if(chave.dir.baixo === true) botao(3,"soltou")
+    else if(chave.dir.baixo === false) botao(3,"apertou")
+  }
+
   //============================================================================
   // CONTROLE
   //
-  const controle =
+  const comando =
   {
     apertou: function(tecla)
     {
@@ -245,10 +310,10 @@ SCRIPT
     },
   }
 
-  const gatilho =
+  const controle =
   {
-    apertou:addEventListener("keydown",controle.apertou,false),
-    soltou:addEventListener("keyup",controle.soltou,false),
+    apertou:addEventListener("keydown",comando.apertou,false),
+    soltou:addEventListener("keyup",comando.soltou,false),
   }
 
   //============================================================================
@@ -266,7 +331,9 @@ SCRIPT
 
     rode: function()
     {
-      movimente()
+      movimente.barras()
+      movimente.bola()
+      luzes()
       atualize()
       window.requestAnimationFrame( motor.rode )
     },
