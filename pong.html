@@ -16,6 +16,8 @@ BODY
 -->
 <body class="centro">
 
+  <div id="contador" class="absolute">0</div>
+
   <div class="placar">
     <div class="caixa centro">
       <div class="letra centro moldura">E</div>
@@ -31,7 +33,7 @@ BODY
   <div id="arena" class="moldura">
     <div id="esq" class="barra"></div>
     <div id="dir" class="barra"></div>
-    <div id="bola"></div>
+    <div id="bola" class="absolute"></div>
   </div>
 
   <div class="placar">
@@ -77,8 +79,7 @@ STYLE
     width:30px;
     height:30px;
     border-radius:100%;
-    background-color:#50B050;
-    position:absolute;
+    background-color:#70D070;
   }
 
   #esq
@@ -91,6 +92,27 @@ STYLE
   {
     float:right;
     border-radius: 10px 0 0 10px;
+  }
+
+  #contador
+  {
+    display:none;
+    color:#70D070;
+    font-size:280px;
+    font-family:sans-serif;
+    margin-top:40px;
+    animation:contagem 1s infinite;
+  }
+
+  @keyframes contagem
+  {
+    0%  {opacity:1}
+    100%{opacity:0}
+  }
+
+  .absolute
+  {
+    position:absolute;
   }
 
   .centro
@@ -155,7 +177,9 @@ SCRIPT
   //
   const info =
   {
-    centro:{x:400,y:250}
+    centro:{x:400,y:250},
+    hor:["esq","dir"],
+    ver:["cim","bai"],
   }
 
   const estado =
@@ -163,8 +187,8 @@ SCRIPT
     esq:0,
     dir:0,
     bola:{x:0,y:0},
-    sentido:{hor:"esq",ver:"cim"},
-    velocidade:1,
+    sentido:{hor:"",ver:""},
+    veloc:4,
   }
 
   const chave =
@@ -181,6 +205,7 @@ SCRIPT
     esq:document.getElementById("esq"),
     dir:document.getElementById("dir"),
     bola:document.getElementById("bola"),
+    contador:document.getElementById("contador"),
 
     //..........................................................................
     //
@@ -228,11 +253,11 @@ SCRIPT
     {
       //........................................................................
       //
-      if(estado.sentido.hor === "esq") estado.bola.x -= estado.velocidade
-      else if(estado.sentido.hor === "dir") estado.bola.x += estado.velocidade
+      if(estado.sentido.hor === "esq") estado.bola.x -= estado.veloc / 2
+      else if(estado.sentido.hor === "dir") estado.bola.x += estado.veloc / 2
 
-      if(estado.sentido.ver === "cim") estado.bola.y -= estado.velocidade
-      else if(estado.sentido.ver === "bai") estado.bola.y += estado.velocidade
+      if(estado.sentido.ver === "cim") estado.bola.y -= estado.veloc / 2
+      else if(estado.sentido.ver === "bai") estado.bola.y += estado.veloc / 2
 
       //........................................................................
       //
@@ -305,12 +330,13 @@ SCRIPT
     {
       if(estado.esq - 30 < estado.bola.y && estado.esq + 120 > estado.bola.y)
       {
-        estado.velocidade += 1
+        estado.veloc += 1
       }
 
       else
       {
         html.numero[0].innerHTML = String(Number(html.numero[0].innerHTML) + 1)
+        motor.ligue()
       }
     }
 
@@ -318,12 +344,13 @@ SCRIPT
     {
       if(estado.dir - 30 < estado.bola.y && estado.dir + 120 > estado.bola.y)
       {
-        estado.velocidade += 1
+        estado.veloc += 1
       }
 
       else
       {
         html.numero[1].innerHTML = String(Number(html.numero[1].innerHTML) + 1)
+        motor.ligue()
       }
     }
   }
@@ -365,6 +392,34 @@ SCRIPT
   {
     ligue: function()
     {
+      estado.veloc = 4
+      estado.sentido = {hor:"",ver:""}
+      html.contador.style.display = "flex"
+      html.contador.innerHTML = "3"
+
+      const contagem = setInterval( function()
+      {
+        const valor = Number(html.contador.innerHTML)
+
+        if(valor > 0)
+        {
+          html.contador.innerHTML = String(valor - 1)
+
+          if(valor === 1)
+          {
+            estado.sentido.hor = info.hor[Math.floor(Math.random() * 2)]
+            estado.sentido.ver = info.ver[Math.floor(Math.random() * 2)]
+          }
+        }
+
+        else if(valor === 0)
+        {
+          html.contador.style.display = "none"
+          clearInterval(contagem)
+        }
+      },
+      1000 )
+
       estado.bola.x = info.centro.x - 15
       estado.bola.y = info.centro.y - 15
 
