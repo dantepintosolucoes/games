@@ -142,7 +142,7 @@ m.mcd=( array )=> // maximum common divisor
         else{ return( false ) }
       } )
 
-      if( test_big.reduce( m.sum ) === 0 )
+      if( test_big.reduce( m.sum ) < array.length )
       {
         break
       }
