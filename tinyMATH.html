@@ -1,0 +1,185 @@
+
+<!DOCTYPE>
+
+<!--////////////////////////////////////////////////////////////////////////////
+-->
+<head>
+<title>tiny MATH</title>
+<meta charset='UTF-8'>
+</head>
+
+<!--////////////////////////////////////////////////////////////////////////////
+-->
+<body>
+</body>
+
+<!--////////////////////////////////////////////////////////////////////////////
+-->
+<script>
+
+'use strict'
+
+//==============================================================================
+// PARTE 1
+//
+const m = {}
+
+//==============================================================================
+// PARTE 2
+//
+m.info =
+{
+  type:
+  {
+    number:
+    {
+      zero:          '0',
+      natural:       'zero, 1, 2, 3, etc',
+      integer:       'natural, -1, -2, -3, etc', 
+      rational:      'integer, 1/2, -2/3, etc',
+      real_algebraic:'rational, √2, -√3, etc',
+      real:          'real_algebraic, π, e, etc',
+
+      imaginary_algebraic:
+      'zero, i√2, i/2, -2i, i, etc',
+      imaginary:
+      'imaginary_algebraic, πi, ei, etc',
+      algebraic:
+      'real_algebraic, imaginary_algebraic, 1+i, -3-2i, 1.7-2.8i, √2+i√3, etc',
+      complex:
+      'real, imaginary, algebraic, 1+πi, 1.5-2πi, e+πi, π+i√2, etc',
+    },
+  },
+}
+
+//==============================================================================
+// PART 1
+//
+m.sum=( base, mod )=>{ return base + mod }
+m.sub=( base, mod )=>{ return base - mod }
+m.mul=( base, mod )=>{ return base * mod }
+m.div=( base, mod )=>{ return base / mod }
+
+//==============================================================================
+// PART 2
+//
+m.dec=( base )=> // decomposition
+{
+  if( base > 1
+  && String( base ).indexOf( '.' ) === -1 )
+  {
+    let array = []
+    let count = 2
+
+    while( true )
+    {
+      if( base === 1 )
+      {
+        break
+      }
+      else if( base % count === 0 )
+      {
+        array.push( count )
+        base = base / count
+      }
+      else
+      {
+        count ++
+      }
+    }
+
+    return( array )
+  }
+  else
+  {
+    console.log( '"m.dec()" needs 1 NATURAL (not zero or one) to work' )
+  }
+}
+
+//==============================================================================
+// PART 3
+//
+m.test_mcd_mcm=( array )=>
+{
+  const test_natural = array.map( ( thing )=>
+  {
+    if( typeof( thing ) === "number"
+    && String( thing ).indexOf( '.' ) === -1
+    && thing > 1 )
+    {
+      return( true )
+    }
+    else
+    {
+      return( false )
+    }
+  } )
+
+  if( test_natural.reduce( m.sum ) === array.length ){ return( true ) }
+  else{ return( false ) }
+}
+m.mcd=( array )=> // maximum common divisor
+{
+  const array_tested = m.test_mcd_mcm( array )
+
+  if( array_tested === true )
+  {
+    const array_old = array
+    let array_new = [ 1 ]
+    let count = 2
+
+    while( true )
+    {
+      const test_big = array.map( ( thing )=>
+      {
+        if( thing > count ){ return( true ) }
+        else{ return( false ) }
+      } )
+
+      const test_combo = array.map( ( thing )=>
+      {
+        if( thing % count === 0 ){ return( true ) }
+        else{ return( false ) }
+      } )
+
+      if( test_big.reduce( m.sum ) === 0 )
+      {
+        break
+      }
+      else if( test_combo.reduce( m.sum ) === array.length )
+      {
+        array_new.push( count )
+        array = array.map( ( thing )=>{ return( thing / count ) } )
+      }
+      else
+      {
+        count ++
+      }
+    }
+
+    let mcd = 1
+
+    if( array_new.length !== 0 ){ mcd = array_new.reduce( m.mul ) }
+
+    return( [ array_old, array_new, mcd ] )
+  }
+  else if( array_tested === false )
+  {
+    console.log( '"m.mcd()" needs 1 ARRAY of NATURALS (not zeros or ones)' )
+  }
+}
+m.mcm=( array )=> // minimum common multiple
+{
+  // tbd
+}
+
+//==============================================================================
+// TESTS
+//
+
+
+
+/*
+*/
+
+</script>
