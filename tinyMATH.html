@@ -99,7 +99,7 @@ m.dec=( base )=> // decomposition
 //==============================================================================
 // PART 3
 //
-m.test_mcd_mcm=( array )=>
+m.test_natural=( array )=>
 {
   const test_natural = array.map( ( thing )=>
   {
@@ -120,9 +120,7 @@ m.test_mcd_mcm=( array )=>
 }
 m.mcd=( array )=> // maximum common divisor
 {
-  const array_tested = m.test_mcd_mcm( array )
-
-  if( array_tested === true )
+  if( m.test_natural( array ) )
   {
     const array_old = array
     let array_new = [ 1 ]
@@ -163,7 +161,7 @@ m.mcd=( array )=> // maximum common divisor
 
     return( [ array_old, array_new, mcd ] )
   }
-  else if( array_tested === false )
+  else
   {
     console.log( '"m.mcd()" needs 1 ARRAY of NATURALS (not zeros or ones)' )
   }
