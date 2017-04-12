@@ -88,11 +88,11 @@ m.dec=( base )=> // decomposition
       }
     }
 
-    return( array )
+    return( [ array, base ] )
   }
   else
   {
-    console.log( '"m.dec()" needs 1 NATURAL (not zero or one) to work' )
+    console.log( '"m.dec()" needs 1 NATURAL greater than 1' )
   }
 }
 
@@ -130,7 +130,7 @@ m.mcd=( array )=> // maximum common divisor
     {
       const test_big = array.map( ( thing )=>
       {
-        if( thing > count ){ return( true ) }
+        if( thing >= count ){ return( true ) }
         else{ return( false ) }
       } )
 
@@ -155,28 +155,98 @@ m.mcd=( array )=> // maximum common divisor
       }
     }
 
-    let mcd = 1
+    const mcd = array_new.reduce( m.mul )
 
-    if( array_new.length !== 0 ){ mcd = array_new.reduce( m.mul ) }
-
-    return( [ array_old, array_new, mcd ] )
+    return( [ array_new, array_old, mcd ] )
   }
   else
   {
-    console.log( '"m.mcd()" needs 1 ARRAY of NATURALS (not zeros or ones)' )
+    console.log( '"m.mcd()" needs 1 ARRAY of NATURALS greater than 1' )
   }
 }
 m.mcm=( array )=> // minimum common multiple
 {
-  // tbd
+  if( m.test_natural( array ) )
+  {
+    const array_old = array
+    let array_new = [ 1 ]
+    let count = 2
+
+    while( true )
+    {
+      const test_break = array.map( ( thing )=>
+      {
+        if( thing === 1 ){ return( true ) }
+        else{ return( false ) }
+      } )
+
+      if( test_break.reduce( m.sum ) === array.length )
+      {
+        break
+      }
+      else
+      {
+        let mark = false
+
+        array = array.map( ( thing )=>
+        {
+          if( thing % count === 0 )
+          {
+            mark = true
+            return( thing / count )
+          }
+          else
+          {
+            return( thing )
+          }
+        } )
+
+        if( mark ){ array_new.push( count ) }
+        else{ count ++ }
+      }
+    }
+
+    const mcd = array_new.reduce( m.mul )
+
+    return( [ array_new, array_old, mcd ] )
+  }
+  else
+  {
+    console.log( '"m.mcm()" needs 1 ARRAY of NATURALS greater than 1' )
+  }
 }
 
 //==============================================================================
-// TESTS
+// PART 4
 //
+m.sqr=( base, seed )=> // square root (do NOT provide seed)
+{
+  if( base > 0 )
+  {
+    if( !seed ){ seed = base / 2 }
 
+    const new_seed = ( ( base / seed ) + seed ) / 2
 
+    console.log( new_seed )
 
+    if( seed === new_seed ){ return( seed ) }
+    else{ return( m.sqr( base, new_seed ) ) }
+  }
+  else
+  {
+    console.log( '"m.sqr()" needs 1 NATURAL greater than 0' )
+  }
+}
+m.exp=( base, mod )=> // exponentiation
+{
+  const base_old = base
+  for( let unit = 0; unit < mod - 1; unit ++ ){ base = base * base_old }
+  return( [ base, [ base_old, mod ] ] )
+}
+
+//==============================================================================
+//
+console.log(  )
 /*
 */
 
