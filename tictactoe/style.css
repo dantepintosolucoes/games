@@ -1,44 +1,30 @@
 
-html
-{
-  height: 100%;
-}
+html, body{ height:100% }
 
-body
-{
-  height: 100%;
-}
-
-#tabuleiro
-{
-  width: 600px;
-  height: 600px;
-}
+#tabuleiro{ width:600px; height:600px }
 
 .casa
 {
-  float: left;
-  width: 200px;
-  height: 200px;
-  border: 10px solid white;
-  border-radius: 60px;
-  background-color: #AABBAA;
-  padding-top: 30px;
+  float:left;
+  width:200px;
+  height:200px;
+  border:10px solid white;
+  border-radius:60px;
+  background-color:#AABBAA;
 
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 160px;
-  color: white;
+  font-family:sans-serif;
+  font-weight:bold;
+  font-size:160px;
+  color:white;
 
-  -moz-user-select: none;
-  cursor: pointer;
+  -moz-user-select:none;
+  cursor:pointer;
 }
 
 .centro
 {
-  display: flex;
-  box-sizing: border-box;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:center;
 }

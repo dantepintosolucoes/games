@@ -1,12 +1,9 @@
 
-html
+html, body
 {
-  height:98%;
-}
-
-body
-{
-  height:98%;
+  margin:0;
+  height:100%;
+  width:100%;
   flex-direction:column;
   -moz-user-select:none;
   cursor:default;
@@ -49,8 +46,6 @@ h1
   font-size:40px;
   font-family:sans-serif;
   font-weight:bold;
-  position:absolute;
-  transform:translateY(-180px);
 }
 
 .lbl
@@ -68,7 +63,6 @@ h1
 .cnt
 {
   display:flex;
-  justify-content:center;
   align-items:center;
 }
 
