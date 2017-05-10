@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+<script>
+
+const root = document.querySelector('#root')
+
+const initialState = {
+  message: 'twerking',
+}
+
+const change_state = {
+  message: 'joy joy joy',
+}
+
+let state = initialState
+
+function build_view (state) {
+
+  return(
+    `<div>
+      <p>${state.message}</p>
+      <button onclick="handle_the_freaking_booberinos()">poob</button>
+    </div>`
+  )
+}
+
+function render (view) {
+  root.innerHTML = build_view(view)
+}
+
+function set_state (new_state) {
+  state = new_state
+  render(state)
+}
+
+function handle_the_freaking_booberinos () {
+  set_state(change_state)
+}
+
+render(state)
+
+</script>
