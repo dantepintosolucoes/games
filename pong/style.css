@@ -21,7 +21,7 @@ html, body
   width:30px;
   height:30px;
   border-radius:100%;
-  background-color:#70D070;
+  background-color:rgb(33,127,190);
 }
 
 #esq
@@ -73,7 +73,7 @@ html, body
 {
   width:10px;
   height:120px;
-  background-color:#70D070;
+  background-color:grey;
 }
 
 .placar
@@ -96,7 +96,7 @@ html, body
   width:50px;
   height:50px;
   font-size:30px;
-  color:#50B050;
+  color:rgb(33,127,190);
   border-radius:10px;
 }
 
